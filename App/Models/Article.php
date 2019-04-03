@@ -44,12 +44,27 @@ class Article extends Model
      */
     public function __get($name)
     {
-        if ($name == 'author') {
+        if ('author' == $name) {
             if (!empty($this->author_id)) {
                 $author = Author::findById($this->author_id);
                 return (false === $author) ? null : $author;
             }
         }
         return null;
+    }
+
+    /**
+     * Магия, проверка существования поля
+     * @param $name string
+     * @return bool
+     */
+    public function __isset($name)
+    {
+        if ('author' == $name) {
+            if (!empty($this->author_id)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
